@@ -1,0 +1,36 @@
+@import '../../../styles/vars';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 8px;
+  color: inherit;
+  font-size: 18px;
+  text-transform: capitalize;
+  transition: background-color 300ms;
+
+  &:hover {
+    background-color: rgba($grey-color, 0.2);
+  }
+
+  &:active {
+    background-color: transparent;
+  }
+
+  &.icon-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: inherit;
+
+    svg {
+      overflow: visible;
+    }
+  }
+}
