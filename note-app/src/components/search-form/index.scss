@@ -1,0 +1,10 @@
+@import '../../styles/vars';
+
+.search-form {
+  display: flex;
+  align-items: center;
+  flex: 0.6;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: $boxShadow;
+}

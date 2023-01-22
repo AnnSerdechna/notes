@@ -1,7 +1,9 @@
+import {Button, Header, Input, SearchForm} from './components'
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
+      <Header />
 
     </div>
   );
