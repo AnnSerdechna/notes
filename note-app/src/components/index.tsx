@@ -1,3 +1,2 @@
 export { Header } from './header'
-
-export * from './ui'
+export { CreateNote } from './create-note'

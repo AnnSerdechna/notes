@@ -1,12 +1,39 @@
-import {Button, Header, Input, SearchForm} from './components'
+import {FC} from 'react'
+import {grey} from '@mui/material/colors'
+import {createTheme, ThemeProvider} from '@mui/material'
 
-function App() {
-  return (
-    <div className="">
-      <Header />
+import {CreateNote, Header} from './components'
 
-    </div>
-  );
-}
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: grey[50],
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          background: 'transparent'
+        }
+      }
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+        },
+      }
+    }
+  },
+});
 
-export default App;
+const App: FC = () => (
+  <ThemeProvider theme={theme}>
+    <Header />
+
+    <CreateNote />
+  </ThemeProvider>
+)
+
+export { App }
