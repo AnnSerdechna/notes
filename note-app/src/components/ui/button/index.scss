@@ -25,12 +25,28 @@
 
   &.icon-button {
     width: 48px;
-    height: 48px;
+    padding: 8px;
     border-radius: 50%;
     font-size: inherit;
 
     svg {
+      width: 2em;
+      height: 2em;
       overflow: visible;
     }
+
+    &.small {
+      width: 32px;
+      height: 32px;
+
+      svg {
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+  }
+
+  &.small {
+    font-size: 14px;
   }
 }

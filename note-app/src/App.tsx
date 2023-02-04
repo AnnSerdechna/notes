@@ -1,11 +1,45 @@
-import {Button, Header, Input, SearchForm} from './components'
+import {CreateNote, Header} from './components'
+import {grey} from '@mui/material/colors'
+import {createTheme, ThemeProvider} from '@mui/material'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: grey[50],
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          // textTransform: 'capitalize'
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          background: 'transparent'
+        }
+      }
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+        },
+      }
+    }
+  },
+});
 
 function App() {
   return (
-    <div className="">
+    <ThemeProvider theme={theme}>
       <Header />
 
-    </div>
+      <CreateNote />
+    </ThemeProvider>
   );
 }
 

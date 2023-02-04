@@ -1,29 +1,42 @@
 import {FC} from 'react'
-import {MdNotes, MdOutlineViewAgenda, MdOutlineSettings, MdOutlineGridView, MdOutlineAccountCircle} from 'react-icons/md'
-
-import {Button} from '../ui'
-import {SearchForm} from '../search-form'
-import {Logo} from '../logo'
+import { Search, Menu, ViewAgendaOutlined, GridViewOutlined, SettingsOutlined, AccountCircleOutlined } from '@mui/icons-material'
 import './index.scss'
-
+import {IconButton, InputBase, Paper} from '@mui/material'
 const Header: FC = () => {
 
   return (
     <header className={'header'}>
       <div className={'header-left'}>
-        <Button icon={<MdNotes />} btnType={'icon-button'} />
-        <Logo />
+        <IconButton color={'primary'} type="button" sx={{ p: '10px' }} aria-label="search">
+          <Menu />
+        </IconButton>
       </div>
 
-      <SearchForm />
+      <Paper
+        component="form"
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder={'Search'}
+        />
+        <IconButton color={'primary'} type="button" sx={{ p: '10px' }} aria-label="search">
+          <Search />
+        </IconButton>
+      </Paper>
 
-      <div className={'header-right'}>
-        <Button icon={<MdOutlineViewAgenda />} btnType={'icon-button'} />
-        {/*<Button icon={<MdOutlineGridView />} btnType={'icon-button'} />*/}
-        <Button icon={<MdOutlineSettings />} btnType={'icon-button'} />
-        <Button icon={<MdOutlineAccountCircle />} btnType={'icon-button'} />
-      </div>
-
+      <IconButton color={'primary'}>
+        <ViewAgendaOutlined />
+      </IconButton>
+      <IconButton color={'primary'}>
+        <GridViewOutlined />
+      </IconButton>
+      <IconButton color={'primary'}>
+        <SettingsOutlined />
+      </IconButton>
+      <IconButton color={'primary'}>
+        <AccountCircleOutlined fontSize={'large'} />
+      </IconButton>
     </header>
   )
 }
