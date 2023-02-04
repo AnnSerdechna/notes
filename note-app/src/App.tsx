@@ -1,6 +1,8 @@
-import {CreateNote, Header} from './components'
+import {FC} from 'react'
 import {grey} from '@mui/material/colors'
 import {createTheme, ThemeProvider} from '@mui/material'
+
+import {CreateNote, Header} from './components'
 
 const theme = createTheme({
   palette: {
@@ -9,13 +11,6 @@ const theme = createTheme({
     },
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          // textTransform: 'capitalize'
-        }
-      }
-    },
     MuiPaper: {
       styleOverrides: {
         root: {
@@ -33,14 +28,12 @@ const theme = createTheme({
   },
 });
 
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <Header />
+const App: FC = () => (
+  <ThemeProvider theme={theme}>
+    <Header />
 
-      <CreateNote />
-    </ThemeProvider>
-  );
-}
+    <CreateNote />
+  </ThemeProvider>
+)
 
-export default App;
+export { App }

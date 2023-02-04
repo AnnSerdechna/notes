@@ -1,7 +1,16 @@
 import {FC} from 'react'
-import { Search, Menu, ViewAgendaOutlined, GridViewOutlined, SettingsOutlined, AccountCircleOutlined } from '@mui/icons-material'
-import './index.scss'
 import {IconButton, InputBase, Paper} from '@mui/material'
+import {
+  Search,
+  Menu,
+  ViewAgendaOutlined,
+  GridViewOutlined,
+  SettingsOutlined,
+  AccountCircleOutlined
+} from '@mui/icons-material'
+
+import './index.scss'
+
 const Header: FC = () => {
 
   return (
