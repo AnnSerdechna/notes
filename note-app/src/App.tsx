@@ -1,27 +1,42 @@
 import {FC} from 'react'
-import {grey} from '@mui/material/colors'
+import {grey, teal} from '@mui/material/colors'
 import {createTheme, ThemeProvider} from '@mui/material'
 
-import {CreateNote, Header} from './components'
+import Pages from './pages'
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: grey[50],
-    },
+      main: grey[900]
+    }
   },
   components: {
     MuiPaper: {
       styleOverrides: {
         root: {
-          background: 'transparent'
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          // color: '#fff'
         }
       }
     },
     MuiInputBase: {
       styleOverrides: {
         root: {
-          color: "#fff",
+          // color: "#fff",
         },
       }
     }
@@ -30,9 +45,7 @@ const theme = createTheme({
 
 const App: FC = () => (
   <ThemeProvider theme={theme}>
-    <Header />
-
-    <CreateNote />
+    <Pages />
   </ThemeProvider>
 )
 
