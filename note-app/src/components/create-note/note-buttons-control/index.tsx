@@ -7,13 +7,11 @@ import {
   ColorLensOutlined,
   MoreVertOutlined,
   PhotoOutlined,
-  RedoOutlined,
-  UndoOutlined,
   DeleteOutlineOutlined,
 } from '@mui/icons-material'
 
 type NoteButtonsControlProps = {
-  bgColor: string
+  bgColor: string | undefined
   onOpenColorsPalette: () => void
   onCloseNote: () => void
 }
@@ -31,7 +29,7 @@ const NoteButtonsControl: FC<NoteButtonsControlProps> = (
       justifyContent={'space-between'}
       alignItems={'center'}
       width={'100%'}
-      sx={{ p: 2, background: `${bgColor}`}}
+      sx={{ background: `${bgColor}`}}
     >
       <Box component={'div'}>
         <IconButton onClick={onOpenColorsPalette}>
@@ -61,14 +59,6 @@ const NoteButtonsControl: FC<NoteButtonsControlProps> = (
 
         <IconButton>
           <DeleteOutlineOutlined fontSize={'small'} />
-        </IconButton>
-
-        <IconButton>
-          <UndoOutlined fontSize={'small'} />
-        </IconButton>
-
-        <IconButton>
-          <RedoOutlined fontSize={'small'} />
         </IconButton>
       </Box>
 

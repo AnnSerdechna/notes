@@ -18,6 +18,7 @@ import {
 import {BackgroundsPalette} from './palette'
 import {NoteButtonsControl} from './note-buttons-control'
 import {Notes} from './notes'
+import {NoteProps} from '../../types'
 
 const CustomTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
@@ -31,12 +32,7 @@ const CustomTextField = styled(TextField)({
 });
 
 const CreateNote: FC = () => {
-  const [noteData, setNoteData] = useState([{
-    title: '',
-    note: '',
-    bgColor: '',
-    bgImage: '',
-  }])
+  const [noteData, setNoteData] = useState<NoteProps[]>([])
 
   const [isActive, setActive] = useState(false)
   const [noteTitle, setNoteTitle] = useState('');
@@ -58,14 +54,14 @@ const CreateNote: FC = () => {
 
   return (
     <>
-      <Stack spacing={2} sx={{ p: 2, width: 600, margin: '0 auto'}}>
+      <Stack spacing={2} sx={{ width: 600, margin: '0 auto'}}>
         <Paper
           component={'form'}
           onClick={() => setActive(true)}
           sx={{ background: `${selectedBgColor}`, backgroundImage: `url(${selectedBgImage})` }}
         >
           {!isActive ? (
-            <Box sx={{p: 2,display: 'flex', justifyContent: 'space-between', alignItems:'center'}}>
+            <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems:'center'}}>
               <Typography variant={'subtitle1'} gutterBottom>
                 Take a note...
               </Typography>
@@ -81,7 +77,7 @@ const CreateNote: FC = () => {
             </Box>
           ) : (
             <>
-              <Box sx={{ p: 2 }}>
+              <Box>
                 <Grid container justifyContent={'space-between'} alignItems={'center'}>
                   <Grid item xs={10}>
                     <CustomTextField
@@ -135,13 +131,7 @@ const CreateNote: FC = () => {
         )}
       </Stack>
 
-      {noteData.length && (
-        <Grid container>
-          <Grid item>
-            <Notes data={noteData} />
-          </Grid>
-        </Grid>
-      )}
+      {!!noteData.length && <Notes data={noteData} />}
     </>
   )
 }
