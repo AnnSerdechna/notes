@@ -31,7 +31,7 @@ const Layout: FC = () => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Header width={drawerWidth} open={open} onDrawerOpen={handleDrawerOpen} />
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant={'permanent'} open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
@@ -40,7 +40,7 @@ const Layout: FC = () => {
         <Divider />
        <DrawerList open={open} />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component={'main'} sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
 
         <Suspense fallback={null}>
@@ -48,7 +48,7 @@ const Layout: FC = () => {
         </Suspense>
       </Box>
     </Box>
-  );
+  )
 }
 
 export { Layout }
@@ -79,7 +79,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }))
 

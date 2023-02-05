@@ -1,5 +1,5 @@
 import {FC} from 'react'
-import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material'
+import {List, ListItem, ListItemButton, ListItemIcon, ListItemText, SvgIconTypeMap} from '@mui/material'
 import {
   ArchiveOutlined,
   DeleteOutlineOutlined,
@@ -8,8 +8,15 @@ import {
   StickyNote2Outlined,
 } from '@mui/icons-material'
 import {NavLink} from 'react-router-dom'
+import {OverridableComponent} from '@mui/material/OverridableComponent'
 
-const drawerList = [
+interface DrawerListProps {
+  item: string
+  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string; }
+  path: string
+}
+
+const drawerList: Array<DrawerListProps> = [
   {
     item: 'Notes',
     Icon: StickyNote2Outlined,
@@ -37,36 +44,33 @@ const drawerList = [
   },
 ]
 
-const DrawerList: FC<{ open: boolean }> = ({ open}) => {
-
-  return (
-    <List>
-      {drawerList.map(({ item, path, Icon}) => (
-        <ListItem key={item} disablePadding sx={{ display: 'block' }}>
-          <NavLink to={path}>
-            <ListItemButton
+const DrawerList: FC<{ open: boolean }> = ({ open}) => (
+  <List>
+    {drawerList.map(({ item, path, Icon}) => (
+      <ListItem key={item} disablePadding sx={{ display: 'block' }}>
+        <NavLink to={path}>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
               sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
               }}
             >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={item} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-      ))}
-    </List>
-  )
-}
+              <Icon />
+            </ListItemIcon>
+            <ListItemText primary={item} sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+        </NavLink>
+      </ListItem>
+    ))}
+  </List>
+)
 
 export { DrawerList }

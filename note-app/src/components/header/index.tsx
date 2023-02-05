@@ -1,16 +1,20 @@
-import {Box, Toolbar, IconButton, Typography, InputBase, Menu} from '@mui/material'
-// import Toolbar from '@mui/material/Toolbar'
-import MenuIcon from '@mui/icons-material/Menu'
-import SearchIcon from '@mui/icons-material/Search'
-import {GridViewOutlined, More, SettingsOutlined, ViewAgendaOutlined, AccountCircle} from '@mui/icons-material'
-// import AccountCircle from '@mui/icons-material/AccountCircle'
 import {FC, useState} from 'react'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import {alpha, styled} from '@mui/material/styles'
+import {Box, Toolbar, IconButton, Typography, InputBase, Menu} from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import SearchIcon from '@mui/icons-material/Search'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import {alpha, styled} from '@mui/material/styles'
+import {
+  GridViewOutlined,
+  More,
+  SettingsOutlined,
+  ViewAgendaOutlined,
+  AccountCircle
+} from '@mui/icons-material'
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  open?: boolean
 }
 
 const Search = styled('div')(({ theme }) => ({
@@ -27,7 +31,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: 'auto',
   },
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -37,13 +41,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -51,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: '20ch',
     },
   },
-}));
+}))
 
 const Header: FC<{ width: number, open: boolean, onDrawerOpen: () => void}> = ({ open, onDrawerOpen, width  }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -60,22 +63,16 @@ const Header: FC<{ width: number, open: boolean, onDrawerOpen: () => void}> = ({
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null)
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+    setAnchorEl(null)
+    handleMobileMenuClose()
+  }
 
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => setMobileMoreAnchorEl(event.currentTarget)
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -97,9 +94,9 @@ const Header: FC<{ width: number, open: boolean, onDrawerOpen: () => void}> = ({
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
-  );
+  )
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = 'primary-search-account-menu-mobile'
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -147,7 +144,7 @@ const Header: FC<{ width: number, open: boolean, onDrawerOpen: () => void}> = ({
         <p>Profile</p>
       </MenuItem>
     </Menu>
-  );
+  )
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -165,7 +162,7 @@ const Header: FC<{ width: number, open: boolean, onDrawerOpen: () => void}> = ({
         duration: theme.transitions.duration.enteringScreen,
       }),
     }),
-  }));
+  }))
 
 
   return (
