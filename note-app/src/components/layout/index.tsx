@@ -1,3 +1,4 @@
+import {FC, useState, Suspense} from 'react'
 import {styled, useTheme, Theme, CSSObject} from '@mui/material/styles'
 import {
   Box,
@@ -8,30 +9,28 @@ import {
 } from '@mui/material'
 import {ChevronLeft, ChevronRight} from '@mui/icons-material'
 
-import {FC, useState, Suspense} from 'react'
-import {HeaderMenu} from '../HeaderMenu'
-import {CreateNote} from '../create-note'
 import {DrawerList} from '../drawer-list'
 import {Outlet} from 'react-router-dom'
+import {Header} from '../header'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const Layout: FC = () => {
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <HeaderMenu width={drawerWidth} open={open} onDrawerOpen={handleDrawerOpen} />
+      <Header width={drawerWidth} open={open} onDrawerOpen={handleDrawerOpen} />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -61,7 +60,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
-});
+})
 
 const closedMixin = (theme: Theme): CSSObject => ({
   transition: theme.transitions.create('width', {
@@ -73,7 +72,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
-});
+})
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -82,7 +81,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-}));
+}))
 
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -100,4 +99,4 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
   }),
-);
+)

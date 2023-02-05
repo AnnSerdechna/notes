@@ -1,13 +1,11 @@
 import {FC} from 'react'
-import {GiNotebook} from 'react-icons/gi'
 
 import './index.scss'
+import {IconButton} from '@mui/material'
 
 const Logo: FC = () => (
-  <div className={'logo'}>
-    NOTES
-    <GiNotebook />
-  </div>
+  <IconButton>
+  </IconButton>
 )
 
 export { Logo }

@@ -1,22 +1,23 @@
 import {FC, useState} from 'react'
-import classNames from 'classnames'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import {Button, IconButton, Stack} from '@mui/material'
 import {
-  AddAlertOutlined,
-  PersonAddAltOutlined,
-  ColorLensOutlined,
+  Box,
+  IconButton,
+  Stack,
+  Paper,
+  Grid,
+  Typography,
+} from '@mui/material'
+import {
   PhotoOutlined,
-  ArchiveOutlined,
-  MoreVertOutlined,
   PushPinOutlined,
-  UndoOutlined,
-  RedoOutlined,
   CheckBoxOutlined,
 } from '@mui/icons-material'
 
-import './index.scss'
+import {BackgroundsPalette} from './palette'
+import {NoteButtonsControl} from './note-buttons-control'
+import {Notes} from './notes'
 
 const CustomTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
@@ -30,96 +31,117 @@ const CustomTextField = styled(TextField)({
 });
 
 const CreateNote: FC = () => {
-  const [isActive, setActive] = useState(false)
-  const [noteValue, setNoteValue] = useState('');
+  const [noteData, setNoteData] = useState([{
+    title: '',
+    note: '',
+    bgColor: '',
+    bgImage: '',
+  }])
 
-  const onNoteChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => setNoteValue(evt.target?.value)
+  const [isActive, setActive] = useState(false)
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteValue, setNoteValue] = useState('');
+  const [selectedBgColor, setSelectedBgColor] = useState('')
+  const [selectedBgImage, setSelectedBgImage] = useState('')
+  const [isPaletteOpen, setOpenPalette] = useState(false)
+
+
+  const openBgPalette = () => setOpenPalette(true)
+
+  const selectBackgroundColor = (backgroundColor: string) => {
+    setSelectedBgColor(backgroundColor)
+  }
+
+  const selectBackgroundImage = (backgroundImage: string) => {
+    setSelectedBgImage(backgroundImage)
+  }
 
   return (
     <>
-      <div
-        className={classNames('create-note', {'active': isActive})}
-        onClick={() => setActive(true)}
-      >
-        {!isActive ? (
-          <>
-            <p className={'create-note-paragraph'}>Take a note...</p>
+      <Stack spacing={2} sx={{ p: 2, width: 600, margin: '0 auto'}}>
+        <Paper
+          component={'form'}
+          onClick={() => setActive(true)}
+          sx={{ background: `${selectedBgColor}`, backgroundImage: `url(${selectedBgImage})` }}
+        >
+          {!isActive ? (
+            <Box sx={{p: 2,display: 'flex', justifyContent: 'space-between', alignItems:'center'}}>
+              <Typography variant={'subtitle1'} gutterBottom>
+                Take a note...
+              </Typography>
 
-            <Stack direction={'row'} spacing={1}>
-              <IconButton color={'primary'}>
-                <CheckBoxOutlined />
-              </IconButton>
-              <IconButton color={'primary'}>
-                <PhotoOutlined />
-              </IconButton>
-            </Stack>
-          </>
-        ) : (
-          <>
-            <div className={'create-note-active-top'}>
-              <CustomTextField placeholder={'Title'} fullWidth />
-              <IconButton color={'primary'}>
-                <PushPinOutlined fontSize={'small'} />
-              </IconButton>
-            </div>
-
-            <CustomTextField
-              value={noteValue}
-              placeholder={'Take a note...'}
-              onChange={onNoteChange}
-              multiline
-              autoFocus
-              fullWidth
-            />
-
-            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-              <div>
+              <Stack direction={'row'} spacing={1}>
                 <IconButton color={'primary'}>
-                  <AddAlertOutlined fontSize={'small'} />
+                  <CheckBoxOutlined />
                 </IconButton>
-
                 <IconButton color={'primary'}>
-                  <PersonAddAltOutlined />
+                  <PhotoOutlined />
                 </IconButton>
+              </Stack>
+            </Box>
+          ) : (
+            <>
+              <Box sx={{ p: 2 }}>
+                <Grid container justifyContent={'space-between'} alignItems={'center'}>
+                  <Grid item xs={10}>
+                    <CustomTextField
+                      onChange={(event) => setNoteTitle(event.target.value)}
+                      placeholder={'Title'}
+                      multiline
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={'auto'}>
+                    <IconButton color={'primary'}>
+                      <PushPinOutlined fontSize={'small'} />
+                    </IconButton>
+                  </Grid>
+                </Grid>
 
-                <IconButton color={'primary'}>
-                  <ColorLensOutlined fontSize={'small'} />
-                </IconButton>
+                <CustomTextField
+                  value={noteValue}
+                  placeholder={'Take a note...'}
+                  onChange={(event) => setNoteValue(event.target?.value)}
+                  multiline
+                  autoFocus
+                  fullWidth
+                />
+              </Box>
 
-                <IconButton color={'primary'}>
-                  <PhotoOutlined fontSize={'small'} />
-                </IconButton>
-
-                <IconButton color={'primary'}>
-                  <ArchiveOutlined fontSize={'small'} />
-                </IconButton>
-
-                <IconButton color={'primary'}>
-                  <MoreVertOutlined fontSize={'small'} />
-                </IconButton>
-
-                <IconButton color={'primary'}>
-                  <UndoOutlined fontSize={'small'} />
-                </IconButton>
-
-                <IconButton color={'primary'}>
-                  <RedoOutlined fontSize={'small'} />
-                </IconButton>
-              </div>
-
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation()
+              <NoteButtonsControl
+                bgColor={selectedBgColor}
+                onOpenColorsPalette={openBgPalette}
+                onCloseNote={() => {
+                  setNoteData((prev) => [...prev, {title: noteTitle, note: noteValue, bgColor: selectedBgColor, bgImage: selectedBgImage}])
                   setActive(false)
+                  setNoteValue('')
+                  setNoteTitle('')
+                  setSelectedBgColor('')
+                  setSelectedBgImage('')
+                  setOpenPalette(false)
                 }}
-                size={'small'}
-              >
-                Close
-              </Button>
-            </Stack>
-          </>
+              />
+            </>
+          )}
+        </Paper>
+
+        {isPaletteOpen && (
+          <BackgroundsPalette
+            onSelectBackgroundImage={selectBackgroundImage}
+            onSelectBackgroundColor={selectBackgroundColor}
+            onResetColor={() => setSelectedBgColor('')}
+            onResetImage={() => setSelectedBgImage('')}
+          />
         )}
-      </div>
+      </Stack>
+
+      {noteData.length && (
+        <Grid container>
+          <Grid item>
+            <Notes data={noteData} />
+          </Grid>
+        </Grid>
+      )}
     </>
   )
 }
